@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Z Studios — Digital Design & Web Experience</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+    :root {
+      --gold: #D4AF37;
+      --gold-dark: #C59F2E;
+      --bg: #0D0D0D;
+      --zgray: #BDBDBD;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      line-height: .9;
+      letter-spacing: -0.02em;
+    }
+
+    .glow {
+      text-shadow: 0 0 6px rgba(212,175,55,0.25), 0 0 12px rgba(212,175,55,0.12);
+    }
+
+    /* MEJORA: Añadido estado :focus para accesibilidad */
+    .btn-gold:hover, .btn-gold:focus {
+      transform: translateY(-2px);
+      outline: 2px solid var(--gold); /* Añade un contorno visible al enfocar */
+      outline-offset: 2px;
+    }
+    .btn-outline:hover, .btn-outline:focus {
+      border-color: var(--gold);
+      outline: none; /* El borde ya sirve como indicador */
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 0.9rem 1.8rem;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 8px 40px rgba(212,175,55,0.08), 0 2px 8px rgba(212,175,55,0.06);
+      text-decoration: none;
+      transition: transform 0.25s, border-color 0.3s;
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.9rem 1.5rem;
+      border-radius: 6px;
+      color: #fff;
+      text-decoration: none;
+      transition: border .3s;
+    }
+
+    .section { padding: 80px 20px; max-width: 1200px; margin: auto; }
+
+    .card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(212,175,55,0.08);
+      border-radius: 8px;
+      padding: 24px;
+      transition: border .3s;
+    }
+    .card:hover { border-color: var(--gold); }
+
+    /* Hero */
+    header {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+    header .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, #0D0D0D, transparent, #0D0D0D);
+      opacity: 0.8;
+    }
+    header h1 {
+      font-size: clamp(4rem, 12vw, 9rem);
+    }
+    header p {
+      max-width: 700px;
+      margin: 20px auto;
+      color: var(--zgray);
+      font-size: 1.2rem;
+    }
+    /* MEJORA: Clase para reemplazar estilos en línea */
+    .hero-actions {
+        margin-top: 30px;
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .section-header {
+        color: var(--zgray);
+        max-width: 700px;
+        margin-bottom: 40px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+    @media (min-width: 768px){
+      .grid-2 { grid-template-columns: repeat(2,1fr); }
+      .grid-3 { grid-template-columns: repeat(3,1fr); }
+    }
+
+    /* --- MEJORA PORTAFOLIO --- */
+    /* Se elimina el scroll horizontal y se convierte en una grid responsive */
+    .portfolio-items {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* La magia está aquí */
+    }
+    .portfolio-card {
+      text-decoration: none;
+      color: #f5f5f5;
+    }
+    .portfolio-thumb {
+      height: 180px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-thumb::after { /* Overlay para mejorar legibilidad del texto */
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+    .portfolio-thumb span {
+      background: rgba(0,0,0,0.5);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      color: var(--zgray);
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+    }
+
+    /* Particles */
+    canvas#particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="overlay"></div>
+    <canvas id="particles"></canvas>
+    <div class="content">
+      <h1 class="glow">Z STUDIOS</h1>
+      <p>Diseño digital, desarrollo web y comunidad privada.
+         Acceso limitado — resultados que brillan.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-gold">Obtener acceso</a>
+        <a href="#community" class="btn-outline">Comunidad / Promos</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="services" class="section">
+    <h2 class="glow">Servicios</h2>
+    <p class="section-header">Ofrecemos soluciones end-to-end para marcas que necesitan brillar en digital.</p>
+    <div class="grid grid-2">
+      <div class="card"><h3>Creación de páginas web</h3><p>Sitios rápidos, accesibles y con identidad.</p></div>
+      <div class="card"><h3>Desarrollo de aplicaciones</h3><p>Apps móviles y web con arquitectura escalable.</p></div>
+      <div class="card"><h3>Análisis & revisión</h3><p>Auditorías técnicas y mejoras de rendimiento.</p></div>
+      <div class="card"><h3>Imágenes para redes</h3><p>Diseños pensados para vender y convertir.</p></div>
+      <div class="card"><h3>Videos para redes</h3><p>Contenido snackable con estética premium.</p></div>
+      <div class="card"><h3>Estrategia & planes</h3><p>Roadmaps de redes para marcas y emprendimientos.</p></div>
+      <div class="card"><h3>Manejo completo de redes</h3><p>Contenido + comunidad + crecimiento orgánico.</p></div>
+      <div class="card"><h3>Packs para rubros</h3><p>Paquetes para moda, uñas, automotoras y más.</p></div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section">
+    <h2 class="glow">Portafolio</h2>
+    <p class="section-header">Selección curada de proyectos recientes.</p>
+    <div class="portfolio-items">
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>E-commerce</span>
+        </div>
+        <h3>Proyecto — Moda</h3>
+      </a>
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1596704017254-9b121068fb31?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>Social / Video</span>
+        </div>
+        <h3>Proyecto — Uñas</h3>
+      </a>
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>Landing</span>
+        </div>
+        <h3>Proyecto — Automotora</h3>
+      </a>
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>Mobile App</span>
+        </div>
+        <h3>Proyecto — App</h3>
+      </a>
+    </div>
+  </section>
+
+  <section id="community" class="section">
+    <h2 class="glow">Comunidad Premium</h2>
+    <p class="section-header">Acceso limitado a mentoring, packs y oportunidades VIP.</p>
+    <div class="grid grid-3">
+      <div class="card"><h3>Mentoring directo</h3><p>Sesiones 1:1 y soporte personalizado.</p></div>
+      <div class="card"><h3>Packs & Promos</h3><p>Descuentos exclusivos y recursos listos.</p></div>
+      <div class="card"><h3>Acceso VIP</h3><p>Primero en enterarte de lanzamientos y upgrades.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-brand">Z STUDIOS</div>
+        <div>Desde 2005 — Underground & Premium</div>
+      </div>
+      <div>Contacto: hola@zstudios.cl</div>
+    </div>
+  </footer>
+
+  <script>
+    // Particles background
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let w, h, particles;
+    // MEJORA: Evitar "números mágicos", darle un nombre a la variable
+    const PIXELS_PER_PARTICLE = 30000;
+
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = Array.from({length: Math.floor((w * h) / PIXELS_PER_PARTICLE)}, ()=>({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.5 + 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.6 + 0.2
+      }));
+    }
+
+    function draw(){
+      ctx.clearRect(0, 0, w, h);
+      for(const p of particles){
+        p.x += p.vx;
+        p.y += p.vy;
+        if(p.x < 0) p.x = w;
+        if(p.x > w) p.x = 0;
+        if(p.y < 0) p.y = h;
+        if(p.y > h) p.y = 0;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+        g.addColorStop(0, `rgba(212,175,55,${p.alpha})`);
+        g.addColorStop(1, 'rgba(212,175,55,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+    draw();
+  </script>
+
+</body>
+</html>
