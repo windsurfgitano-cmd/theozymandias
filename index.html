@@ -1,221 +1,325 @@
-<!DOCTYPE html>  
-<html lang="es">  
-<head>  
-  <!-- ===== META SEO ===== -->  
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <meta name="description" content="Z Studios - Diseño digital premium, desarrollo web y comunidad exclusiva. Transformamos marcas con soluciones digitales que brillan.">  
-  <meta name="keywords" content="diseño web, desarrollo apps, marketing digital, comunidad premium, Z Studios">  
-  <meta property="og:title" content="Z Studios — Diseño Digital Premium">  
-  <meta property="og:description" content="Transformamos marcas con diseño digital premium y desarrollo web de vanguardia.">  
-  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Z+Studios">  
-  <meta property="og:url" content="https://tusitio.com">  
-  <meta name="twitter:card" content="summary_large_image">  
-  <title>Z Studios — Digital Design & Web Experience</title>  
-  
-  <!-- JSON-LD Structured Data -->  
-  <script type="application/ld+json">  
-  {  
-    "@context": "https://schema.org",  
-    "@type": "Organization",  
-    "name": "Z Studios",  
-    "url": "https://tusitio.com",  
-    "logo": "https://tusitio.com/logo.png",  
-    "sameAs": [  
-      "https://facebook.com/tuperfil",  
-      "https://instagram.com/tuperfil",  
-      "https://linkedin.com/company/tuperfil"  
-    ],  
-    "contactPoint": [{  
-      "@type": "ContactPoint",  
-      "telephone": "+1-234-567-890",  
-      "contactType": "customer service",  
-      "areaServed": "CL",  
-      "availableLanguage": ["Spanish","English"]  
-    }]  
-  }  
-  </script>  
-  
-  <!-- Fuentes -->  
-  <link rel="preconnect" href="https://fonts.googleapis.com">  
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">  
-  
-  <style>  
-    /* === VARIABLES Y RESET === */  
-    :root { --gold:#D4AF37; --bg:#0D0D0D; --white:#f5f5f5; --zgray:#BDBDBD; --accent:#FF6B6B; }  
-    *{margin:0;padding:0;box-sizing:border-box;}  
-    body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden;}  
-    a{text-decoration:none;color:inherit;}  
-  
-    /* === NAV === */  
-    nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.85);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:1000;}  
-    nav.scrolled{box-shadow:0 2px 10px rgba(0,0,0,0.5);}  
-    .nav-logo{font-family:'Oswald',sans-serif;color:var(--gold);font-weight:700;font-size:1.5rem;}  
-    .nav-menu{display:flex;gap:1.5rem;}  
-    .nav-link{color:var(--white);position:relative;}  
-    .nav-link::after{content:"";position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--gold);transition:width 0.3s;}  
-    .nav-link:hover::after{width:100%;}  
-  
-    /* === HERO === */  
-    header{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:80px;position:relative;}  
-    header h1{font-family:'Oswald',sans-serif;font-size:3rem;color:var(--gold);}  
-    .hero-subtitle{color:var(--gold);font-size:1.2rem;margin-bottom:1rem;}  
-    .btn{display:inline-block;padding:0.8rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;}  
-    .btn-gold{background:var(--gold);color:#000;}  
-    .btn-outline{border:2px solid var(--gold);color:var(--gold);background:transparent;}  
-    .btn-gold:hover{background:#e6c24a;}  
-    .btn-outline:hover{background:rgba(212,175,55,0.1);}  
-  
-    /* === PRODUCTOS === */  
-    .section{padding:4rem 1rem;max-width:1200px;margin:auto;}  
-    .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;}  
-    .product-card{background:rgba(255,255,255,0.05);border-radius:15px;padding:1rem;text-align:center;}  
-    .product-card img{width:100%;height:180px;object-fit:cover;border-radius:10px;}  
-    .price{color:var(--gold);font-size:1.5rem;margin:0.5rem 0;}  
-    .cart-counter{background:var(--accent);color:#fff;border-radius:50%;padding:0.2rem 0.5rem;font-size:0.8rem;position:absolute;top:10px;right:10px;}  
-  
-    /* === CARRITO === */  
-    #cartModal{position:fixed;top:0;right:-400px;width:350px;height:100%;background:rgba(0,0,0,0.95);color:#fff;z-index:2000;padding:1rem;transition:right 0.3s;overflow-y:auto;}  
-    #cartModal.active{right:0;}  
-    .cart-item{display:flex;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:0.5rem;}  
-    .cart-total{font-weight:bold;margin-top:1rem;}  
-    .checkout-btn{display:block;width:100%;padding:0.8rem;background:var(--gold);color:#000;border:none;cursor:pointer;border-radius:5px;margin-top:1rem;}  
-  </style>  
-</head>  
-<body>  
-  
-  <!-- ===== NAVBAR ===== -->  
-  <nav id="navbar">  
-    <a href="#" class="nav-logo">Z STUDIOS</a>  
-    <div class="nav-menu">  
-      <a href="#home" class="nav-link">Inicio</a>  
-      <a href="#catalogo" class="nav-link">Catálogo</a>  
-      <a href="#contacto" class="nav-link">Contacto</a>  
-      <a href="javascript:void(0)" id="openCart" class="nav-link">🛒 Carrito <span id="cartCount" class="cart-counter">0</span></a>  
-    </div>  
-  </nav>  
-  
-  <!-- ===== HERO ===== -->  
-  <header id="home">  
-    <div>  
-      <div class="hero-subtitle">Bienvenido al futuro digital</div>  
-      <h1>Z STUDIOS</h1>  
-      <p>Transformamos marcas con diseño digital premium y desarrollo web de vanguardia. 🚀</p>  
-      <div style="margin-top:1rem;">  
-        <a href="#catalogo" class="btn btn-gold">Ver Productos</a>  
-        <a href="#contacto" class="btn btn-outline">Solicitar Propuesta</a>  
-      </div>  
-    </div>  
-  </header>  
-  
-  <!-- ===== CATÁLOGO ===== -->  
-  <section id="catalogo" class="section">  
-    <h2 style="text-align:center;color:var(--gold);">Nuestros Planes</h2>  
-    <p style="text-align:center;color:var(--zgray);">Elige el paquete perfecto para tu proyecto</p>  
-    <div class="products-grid" id="productsContainer"></div>  
-  </section>  
-  
-  <!-- ===== CONTACTO ===== -->  
-  <section id="contacto" class="section">  
-    <h2 style="text-align:center;color:var(--gold);">Hablemos de tu proyecto</h2>  
-    <form id="contactForm" style="max-width:500px;margin:auto;">  
-      <input type="text" placeholder="Nombre" required style="width:100%;padding:0.8rem;margin-bottom:1rem;">  
-      <input type="email" placeholder="Email" required style="width:100%;padding:0.8rem;margin-bottom:1rem;">  
-      <textarea placeholder="Cuéntanos tu idea..." style="width:100%;padding:0.8rem;height:120px;"></textarea>  
-      <button type="submit" class="btn btn-gold" style="width:100%;">📩 Envíame mi propuesta ahora</button>  
-    </form>  
-  </section>  
-  
-  <!-- ===== MODAL CARRITO ===== -->  
-  <div id="cartModal">  
-    <h3>🛒 Tu Carrito</h3>  
-    <div id="cartItems"></div>  
-    <div class="cart-total">Total: $<span id="cartTotal">0</span></div>  
-    <button class="checkout-btn" id="checkoutBtn">Finalizar Compra</button>  
-  </div>  
-  
-  <script>  
-    // ==== DATA PRODUCTOS ====  
-    const products = [  
-      {id:1,name:"Plan Starter",price:299,img:"https://via.placeholder.com/400x250.png?text=Starter"},  
-      {id:2,name:"Plan Business",price:599,img:"https://via.placeholder.com/400x250.png?text=Business"},  
-      {id:3,name:"Plan Enterprise",price:1299,img:"https://via.placeholder.com/400x250.png?text=Enterprise"}  
-    ];  
-  
-    // ==== RENDER PRODUCTOS ====  
-    const productsContainer = document.getElementById('productsContainer');  
-    products.forEach(p=>{  
-      const card = document.createElement('div');  
-      card.classList.add('product-card');  
-      card.innerHTML = `  
-        <img src="${p.img}" alt="${p.name}" loading="lazy">  
-        <h3>${p.name}</h3>  
-        <div class="price">$${p.price}</div>  
-        <button class="btn btn-gold" onclick="addToCart(${p.id})">Añadir al carrito</button>  
-      `;  
-      productsContainer.appendChild(card);  
-    });  
-  
-    // ==== CARRITO ====  
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];  
-    const cartCount = document.getElementById('cartCount');  
-    const cartItems = document.getElementById('cartItems');  
-    const cartTotal = document.getElementById('cartTotal');  
-    const cartModal = document.getElementById('cartModal');  
-  
-    function saveCart(){  
-      localStorage.setItem('cart', JSON.stringify(cart));  
-      updateCartUI();  
-    }  
-  
-    function updateCartUI(){  
-      cartCount.textContent = cart.length;  
-      cartItems.innerHTML = '';  
-      let total = 0;  
-      cart.forEach((item,index)=>{  
-        total += item.price;  
-        cartItems.innerHTML += `  
-          <div class="cart-item">  
-            <span>${item.name}</span>  
-            <span>$${item.price} <a href="javascript:void(0)" onclick="removeFromCart(${index})" style="color:var(--accent);">x</a></span>  
-          </div>  
-        `;  
-      });  
-      cartTotal.textContent = total;  
-    }  
-  
-    function addToCart(id){  
-      const product = products.find(p=>p.id===id);  
-      cart.push(product);  
-      saveCart();  
-    }  
-  
-    function removeFromCart(index){  
-      cart.splice(index,1);  
-      saveCart();  
-    }  
-  
-    // ==== EVENTOS CARRITO ====  
-    document.getElementById('openCart').addEventListener('click',()=>cartModal.classList.toggle('active'));  
-    document.getElementById('checkoutBtn').addEventListener('click',()=>{  
-      alert('Aquí iría la integración con Stripe/PayPal.');  
-    });  
-  
-    // ==== FORMULARIO CONTACTO ====  
-    document.getElementById('contactForm').addEventListener('submit',e=>{  
-      e.preventDefault();  
-      alert('¡Gracias! Te contactaremos pronto.');  
-      e.target.reset();  
-    });  
-  
-    // ==== SCROLL NAV ====  
-    window.addEventListener('scroll',()=>{  
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>50);  
-    });  
-  
-    // Inicializa UI carrito  
-    updateCartUI();  
-  </script>  
-</body>  
-</html>  
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Z Studios — Digital Design & Web Experience</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+    :root {
+      --gold: #D4AF37;
+      --gold-dark: #C59F2E;
+      --bg: #0D0D0D;
+      --zgray: #BDBDBD;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      line-height: .9;
+      letter-spacing: -0.02em;
+    }
+
+    .glow {
+      text-shadow: 0 0 6px rgba(212,175,55,0.25), 0 0 12px rgba(212,175,55,0.12);
+    }
+
+    /* MEJORA: Añadido estado :focus para accesibilidad */
+    .btn-gold:hover, .btn-gold:focus {
+      transform: translateY(-2px);
+      outline: 2px solid var(--gold); /* Añade un contorno visible al enfocar */
+      outline-offset: 2px;
+    }
+    .btn-outline:hover, .btn-outline:focus {
+      border-color: var(--gold);
+      outline: none; /* El borde ya sirve como indicador */
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 0.9rem 1.8rem;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 8px 40px rgba(212,175,55,0.08), 0 2px 8px rgba(212,175,55,0.06);
+      text-decoration: none;
+      transition: transform 0.25s, border-color 0.3s;
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.9rem 1.5rem;
+      border-radius: 6px;
+      color: #fff;
+      text-decoration: none;
+      transition: border .3s;
+    }
+
+    .section { padding: 80px 20px; max-width: 1200px; margin: auto; }
+
+    .card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(212,175,55,0.08);
+      border-radius: 8px;
+      padding: 24px;
+      transition: border .3s;
+    }
+    .card:hover { border-color: var(--gold); }
+
+    /* Hero */
+    header {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+    header .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, #0D0D0D, transparent, #0D0D0D);
+      opacity: 0.8;
+    }
+    header h1 {
+      font-size: clamp(4rem, 12vw, 9rem);
+    }
+    header p {
+      max-width: 700px;
+      margin: 20px auto;
+      color: var(--zgray);
+      font-size: 1.2rem;
+    }
+    /* MEJORA: Clase para reemplazar estilos en línea */
+    .hero-actions {
+        margin-top: 30px;
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .section-header {
+        color: var(--zgray);
+        max-width: 700px;
+        margin-bottom: 40px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+    @media (min-width: 768px){
+      .grid-2 { grid-template-columns: repeat(2,1fr); }
+      .grid-3 { grid-template-columns: repeat(3,1fr); }
+    }
+
+    /* --- MEJORA PORTAFOLIO --- */
+    /* Se elimina el scroll horizontal y se convierte en una grid responsive */
+    .portfolio-items {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* La magia está aquí */
+    }
+    .portfolio-card {
+      text-decoration: none;
+      color: #f5f5f5;
+    }
+    .portfolio-thumb {
+      height: 180px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-thumb::after { /* Overlay para mejorar legibilidad del texto */
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+    .portfolio-thumb span {
+      background: rgba(0,0,0,0.5);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      color: var(--zgray);
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+    }
+
+    /* Particles */
+    canvas#particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="overlay"></div>
+    <canvas id="particles"></canvas>
+    <div class="content">
+      <h1 class="glow">Z STUDIOS</h1>
+      <p>Diseño digital, desarrollo web y comunidad privada.
+         Acceso limitado — resultados que brillan.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-gold">Obtener acceso</a>
+        <a href="#community" class="btn-outline">Comunidad / Promos</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="services" class="section">
+    <h2 class="glow">Servicios</h2>
+    <p class="section-header">Ofrecemos soluciones end-to-end para marcas que necesitan brillar en digital.</p>
+    <div class="grid grid-2">
+      <div class="card"><h3>Creación de páginas web</h3><p>Sitios rápidos, accesibles y con identidad.</p></div>
+      <div class="card"><h3>Desarrollo de aplicaciones</h3><p>Apps móviles y web con arquitectura escalable.</p></div>
+      <div class="card"><h3>Análisis & revisión</h3><p>Auditorías técnicas y mejoras de rendimiento.</p></div>
+      <div class="card"><h3>Imágenes para redes</h3><p>Diseños pensados para vender y convertir.</p></div>
+      <div class="card"><h3>Videos para redes</h3><p>Contenido snackable con estética premium.</p></div>
+      <div class="card"><h3>Estrategia & planes</h3><p>Roadmaps de redes para marcas y emprendimientos.</p></div>
+      <div class="card"><h3>Manejo completo de redes</h3><p>Contenido + comunidad + crecimiento orgánico.</p></div>
+      <div class="card"><h3>Packs para rubros</h3><p>Paquetes para moda, uñas, automotoras y más.</p></div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section">
+    <h2 class="glow">Portafolio</h2>
+    <p class="section-header">Selección curada de proyectos recientes.</p>
+    <div class="portfolio-items">
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>E-commerce</span>
+        </div>
+        <h3>Proyecto — Moda</h3>
+      </a>
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1596704017254-9b121068fb31?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>Social / Video</span>
+        </div>
+        <h3>Proyecto — Uñas</h3>
+      </a>
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>Landing</span>
+        </div>
+        <h3>Proyecto — Automotora</h3>
+      </a>
+      <a href="#" class="card portfolio-card">
+        <div class="portfolio-thumb" style="background-image: url('https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800');">
+          <span>Mobile App</span>
+        </div>
+        <h3>Proyecto — App</h3>
+      </a>
+    </div>
+  </section>
+
+  <section id="community" class="section">
+    <h2 class="glow">Comunidad Premium</h2>
+    <p class="section-header">Acceso limitado a mentoring, packs y oportunidades VIP.</p>
+    <div class="grid grid-3">
+      <div class="card"><h3>Mentoring directo</h3><p>Sesiones 1:1 y soporte personalizado.</p></div>
+      <div class="card"><h3>Packs & Promos</h3><p>Descuentos exclusivos y recursos listos.</p></div>
+      <div class="card"><h3>Acceso VIP</h3><p>Primero en enterarte de lanzamientos y upgrades.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-brand">Z STUDIOS</div>
+        <div>Desde 2005 — Underground & Premium</div>
+      </div>
+      <div>Contacto: hola@zstudios.cl</div>
+    </div>
+  </footer>
+
+  <script>
+    // Particles background
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let w, h, particles;
+    // MEJORA: Evitar "números mágicos", darle un nombre a la variable
+    const PIXELS_PER_PARTICLE = 30000;
+
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = Array.from({length: Math.floor((w * h) / PIXELS_PER_PARTICLE)}, ()=>({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.5 + 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.6 + 0.2
+      }));
+    }
+
+    function draw(){
+      ctx.clearRect(0, 0, w, h);
+      for(const p of particles){
+        p.x += p.vx;
+        p.y += p.vy;
+        if(p.x < 0) p.x = w;
+        if(p.x > w) p.x = 0;
+        if(p.y < 0) p.y = h;
+        if(p.y > h) p.y = 0;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+        g.addColorStop(0, `rgba(212,175,55,${p.alpha})`);
+        g.addColorStop(1, 'rgba(212,175,55,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+    draw();
+  </script>
+
+</body>
+</html>
